@@ -11,3 +11,10 @@ form{
   padding: 30px;
   box-shadow: 0px 0px 10px 0px;
 }
+.bgimage{
+  width: 70px;
+  height: 70px;
+  position: absolute;
+  top: -45px;
+  left: 45%;
+}
