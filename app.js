@@ -36,10 +36,21 @@ app.post("/", function (req, res) {
   const url = "https://us10.api.mailchimp.com/3.0/lists/08441da840"
   const optoins = {
      method : "POST",
-     auth: "arnoldosilva:a88dd5ee7603b46ae742f6dc8ef6eb68-us10" 
+     auth: "arnoldosilva:a88dd5ee7603b46ae742f6dc8ef6eb68-us" 
   }
+
   const request = https.request(url, optoins, function(response){
-        response.on("data", function(data){
+    
+    if(response.statusCode === 200){
+        // res.send("Successfully subscribed!")
+        res.sendFile(__dirname+"/success.html")
+    }else{
+        // res.send("There was erro with signing up, please try again")
+        res.sendFile(__dirname+"/failure.html")
+    }
+
+
+    response.on("data", function(data){
             console.log(JSON.parse(data))
         })
     })  
@@ -49,7 +60,13 @@ app.post("/", function (req, res) {
 
 });
 
-app.listen(3000, () => {
+
+app.post("/failure", function(req,res){
+    res.redirect("/")
+})
+
+
+app.listen(process.env.PORT, () => {
   console.log("Ouvindo a porta 3000");
 });
 
